@@ -5,6 +5,8 @@ public class PlayerCamera : MonoBehaviour
 {
 #region Variables (public)
 
+	static public PlayerCamera Instance = null;
+
 	public Transform m_pTarget = null;
 
 	public float m_fFollowDistance = 0.0f;
@@ -20,6 +22,22 @@ public class PlayerCamera : MonoBehaviour
 
 	#endregion
 
+
+	private void Awake()
+	{
+		if (Instance != null)
+		{
+			if (this != Instance)
+			{
+				Destroy(gameObject);
+				Debug.LogError("Two instances of singleton class " + GetType() + " exist. Second instance has been destroyed.");
+			}
+
+			return;
+		}
+
+		Instance = this;
+	}
 
 	private void Start()
 	{
