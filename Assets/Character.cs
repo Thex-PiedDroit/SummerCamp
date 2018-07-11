@@ -28,6 +28,8 @@ public class Character : MonoBehaviour
 
 		if (tMovement != Vector3.zero)
 		{
+			tMovement = PlayerCamera.Instance.transform.TransformVector(tMovement);
+
 			m_pRigidBody.MovePosition(m_pRigidBody.position + tMovement * (m_fSpeed * Time.deltaTime));
 			transform.forward = tMovement.normalized;
 		}
