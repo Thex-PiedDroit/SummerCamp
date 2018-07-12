@@ -1,12 +1,22 @@
 ﻿
 using UnityEngine;
 
-public class Character : MonoBehaviour
+abstract public class Character : MonoBehaviour
 {
 #region Variables (public)
 
+	public enum EFaction
+	{
+		GOOD,
+		BAD
+	}
+
 	public Rigidbody m_pRigidBody = null;
 
+	public Weapon m_pWeapon = null;
+	public EFaction m_eFaction = EFaction.BAD;
+
+	public float m_fHealth = 0.0f;
 	public float m_fSpeed = 0.0f;
 
 	#endregion
@@ -18,20 +28,8 @@ public class Character : MonoBehaviour
 	#endregion
 
 
-	private void Update()
+	public void Damage(float fDamage)
 	{
-		Vector3 tMovement = new Vector3
-		{
-			x = Input.GetAxis("Horizontal"),
-			z = Input.GetAxis("Vertical")
-		};
-
-		if (tMovement != Vector3.zero)
-		{
-			tMovement = PlayerCamera.Instance.transform.TransformVector(tMovement);
-
-			m_pRigidBody.MovePosition(m_pRigidBody.position + tMovement * (m_fSpeed * Time.deltaTime));
-			transform.forward = tMovement.normalized;
-		}
+		m_fHealth -= fDamage;
 	}
 }
