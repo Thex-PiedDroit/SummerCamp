@@ -7,6 +7,8 @@ abstract public class Weapon : MonoBehaviour
 
 	public Character m_pMaster = null;
 
+	public WeaponAttack m_pWeaponAttack = null;
+
 	[Tooltip("In attacks per second")]
 	public float m_fRateOfAttack = 0.0f;
 
@@ -18,6 +20,16 @@ abstract public class Weapon : MonoBehaviour
 
 	#endregion
 
+
+	public void ActivateCollider()
+	{
+		m_pWeaponAttack.m_pAttackCollider.enabled = true;
+	}
+
+	public void DeactivateCollider()
+	{
+		m_pWeaponAttack.m_pAttackCollider.enabled = false;
+	}
 
 	public void TryAttack()
 	{

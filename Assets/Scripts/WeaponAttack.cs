@@ -8,6 +8,8 @@ public class WeaponAttack : MonoBehaviour
 
 	public Character m_pMaster = null;
 
+	public Collider m_pAttackCollider = null;
+
 	public Vector2 m_tMinMaxDamage = Vector2.zero;
 
 	#endregion
