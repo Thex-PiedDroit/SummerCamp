@@ -26,7 +26,7 @@ public class WeaponAttack : MonoBehaviour
 		m_pTouchedCharactersThisAttack = new List<Character>();
 	}
 
-	private void OnDisable()
+	public void ClearTargets()
 	{
 		m_pTouchedCharactersThisAttack.Clear();
 	}

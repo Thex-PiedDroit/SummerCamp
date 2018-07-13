@@ -17,6 +17,8 @@ abstract public class Weapon : MonoBehaviour
 #region Variables (private)
 
 	private float m_fLastAttackTime = 0.0f;
+
+	private bool m_bAttackAnimStarted = false;
 	private bool m_bIsAttacking = false;
 
 	#endregion
@@ -30,17 +32,26 @@ abstract public class Weapon : MonoBehaviour
 	public void DeactivateCollider()
 	{
 		m_pWeaponAttack.m_pAttackCollider.enabled = false;
+		m_pWeaponAttack.ClearTargets();
 	}
 
 	public void AttackFinished()
 	{
 		m_bIsAttacking = false;
+		m_bAttackAnimStarted = false;
 	}
 
 	private void LateUpdate()
 	{
-		if (m_bIsAttacking && !m_pMaster.m_pAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
-			AttackFinished();
+		if (m_bIsAttacking)
+		{
+			bool bIsAttackAnim = m_pMaster.m_pAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
+
+			if (!m_bAttackAnimStarted)
+				m_bAttackAnimStarted = bIsAttackAnim;
+			else if (!bIsAttackAnim)
+				AttackFinished();
+		}
 	}
 
 	public bool IsAttacking()
