@@ -318,11 +318,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab6d702aea482648bed35114d9e3fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_pRigidBody: {fileID: 54853957245985420}
+  m_pAnimator: {fileID: 0}
   m_pWeapon: {fileID: 114517605583040746}
   m_eFaction: 0
   m_fHealth: 15
   m_fSpeed: 10
+  m_pRigidBody: {fileID: 54853957245985420}
 --- !u!114 &114517605583040746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -335,6 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pMaster: {fileID: 114150488209759518}
+  m_pWeaponAttack: {fileID: 0}
   m_fRateOfAttack: 3
   m_pProjectilePrefab: {fileID: 114662958463044112, guid: 0174561d2cb6c8942a3b447d94817af6,
     type: 2}

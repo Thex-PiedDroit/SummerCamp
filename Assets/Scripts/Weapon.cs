@@ -41,11 +41,16 @@ abstract public class Weapon : MonoBehaviour
 		m_bAttackAnimStarted = false;
 	}
 
+	public void KillMaster()
+	{
+		m_pMaster.KillCharacter();
+	}
+
 	private void LateUpdate()
 	{
 		if (m_bIsAttacking)
 		{
-			bool bIsAttackAnim = m_pMaster.m_pAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
+			bool bIsAttackAnim = m_pMaster.m_pAnimator != null ? m_pMaster.m_pAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") : false;
 
 			if (!m_bAttackAnimStarted)
 				m_bAttackAnimStarted = bIsAttackAnim;

@@ -37,9 +37,18 @@ public class EnemyCharacter : Character
 		return (transform.position - m_pTarget.transform.position).sqrMagnitude <= (m_pNavMeshAgent.stoppingDistance * m_pNavMeshAgent.stoppingDistance);
 	}
 
+	protected override void LaunchDeathAnim()
+	{
+		base.LaunchDeathAnim();
+		m_pNavMeshAgent.enabled = false;
+	}
+
 	private void Update()
 	{
-		if (m_pTarget != null)
+		if (IsDead)
+			return;
+
+		if (m_pTarget != null && !m_pTarget.IsDead)
 		{
 			if (!HasReachedDestination())
 				FollowTarget();
@@ -60,6 +69,7 @@ public class EnemyCharacter : Character
 
 	private void AttackTarget()
 	{
+		transform.LookAt(m_pTarget.transform, Vector3.up);
 		m_pNavMeshAgent.SetDestination(transform.position);
 		if (!IsAttacking())
 			m_pWeapon.TryAttack();

@@ -505,7 +505,6 @@ GameObject:
   - component: {fileID: 114437857230814432}
   - component: {fileID: 136050072590847670}
   - component: {fileID: 136306499530072534}
-  - component: {fileID: 54853957245985420}
   - component: {fileID: 195450257055126070}
   m_Layer: 31
   m_Name: Enemy
@@ -939,8 +938,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1790537869403816}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4685962332108222}
@@ -1242,21 +1241,6 @@ Transform:
   m_Father: {fileID: 4111247050944926}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.000042742056, y: -0.000035858462, z: -90.00006}
---- !u!54 &54853957245985420
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1790537869403816}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!65 &65448368118367204
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1299,10 +1283,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pAnimator: {fileID: 95812053088440390}
-  m_pRigidBody: {fileID: 54853957245985420}
   m_pWeapon: {fileID: 114850000585705782}
   m_eFaction: 1
-  m_fHealth: 10
+  m_fHealth: 4
   m_fSpeed: 8
   m_pNavMeshAgent: {fileID: 195450257055126070}
   m_fDistanceToTargetToAttack: 1

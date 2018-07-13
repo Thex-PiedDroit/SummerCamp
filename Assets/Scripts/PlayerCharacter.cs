@@ -7,6 +7,8 @@ public class PlayerCharacter : Character
 
 	static public PlayerCharacter Instance = null;
 
+	public Rigidbody m_pRigidBody = null;
+
 	#endregion
 
 #region Variables (private)
@@ -34,6 +36,9 @@ public class PlayerCharacter : Character
 
 	private void Update()
 	{
+		if (IsDead)
+			return;
+
 		CatchMoveInput();
 		CatchShootInput();
 	}

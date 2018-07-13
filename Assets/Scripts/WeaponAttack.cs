@@ -41,7 +41,7 @@ public class WeaponAttack : MonoBehaviour
 	{
 		Character pTouchedCharacter = pOther.GetComponent<Character>();
 
-		if (pTouchedCharacter != null && !m_pTouchedCharactersThisAttack.Contains(pTouchedCharacter) && pTouchedCharacter.m_eFaction != m_pMaster.m_eFaction)
+		if (pTouchedCharacter != null && !m_pTouchedCharactersThisAttack.Contains(pTouchedCharacter) && pTouchedCharacter.m_eFaction != m_pMaster.m_eFaction && !pTouchedCharacter.IsDead)
 			DamageCharacter(pTouchedCharacter);
 	}
 }
