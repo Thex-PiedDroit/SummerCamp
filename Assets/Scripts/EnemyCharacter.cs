@@ -29,15 +29,19 @@ public class EnemyCharacter : Character
 
 	private bool IsAttacking()
 	{
-		AnimatorStateInfo pInfo = m_pAnimator.GetCurrentAnimatorStateInfo(0);
-		return pInfo.IsTag("Attack") && pInfo.normalizedTime < 0.75f;
+		return m_pWeapon.IsAttacking();
+	}
+
+	private bool HasReachedDestination()
+	{
+		return (transform.position - m_pTarget.transform.position).sqrMagnitude <= (m_pNavMeshAgent.stoppingDistance * m_pNavMeshAgent.stoppingDistance);
 	}
 
 	private void Update()
 	{
 		if (m_pTarget != null)
 		{
-			if (!IsAttacking() && (transform.position - m_pTarget.transform.position).sqrMagnitude > (m_pNavMeshAgent.stoppingDistance * m_pNavMeshAgent.stoppingDistance))
+			if (!HasReachedDestination())
 				FollowTarget();
 			else
 				AttackTarget();
@@ -46,7 +50,7 @@ public class EnemyCharacter : Character
 
 	private void LateUpdate()
 	{
-		m_pAnimator.SetBool("Moving", m_pNavMeshAgent.speed > 0.0f);
+		m_pAnimator.SetBool("Moving", !HasReachedDestination());
 	}
 
 	private void FollowTarget()
