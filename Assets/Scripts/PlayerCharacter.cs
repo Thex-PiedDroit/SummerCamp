@@ -54,7 +54,10 @@ public class PlayerCharacter : Character
 			z = Input.GetAxis("Vertical")
 		};
 
-		if (tMovement == Vector3.zero)
+		bool bMoving = tMovement != Vector3.zero;
+		m_pAnimator.SetBool("Moving", bMoving);
+
+		if (!bMoving)
 			return;
 
 		tMovement = PlayerCamera.Instance.transform.TransformVector(tMovement);
@@ -69,9 +72,8 @@ public class PlayerCharacter : Character
 			m_pWeapon?.TryAttack();
 	}
 
-	protected override void LaunchDeathAnim()
+	override public void KillCharacter()
 	{
-		base.LaunchDeathAnim();
 		StartCoroutine(WaitBeforeRespawn());
 	}
 

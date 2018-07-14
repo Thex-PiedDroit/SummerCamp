@@ -9,6 +9,8 @@ abstract public class Weapon : MonoBehaviour
 
 	public WeaponAttack m_pWeaponAttack = null;
 
+	public string m_sAttackTriggerName = null;
+
 	[Tooltip("In attacks per second")]
 	public float m_fRateOfAttack = 0.0f;
 
