@@ -25,6 +25,13 @@ public class EnemyCharacter : Character
 		m_pNavMeshAgent.stoppingDistance = m_fDistanceToTargetToAttack + (m_pNavMeshAgent.radius * 2.0f);
 
 		m_pTarget = PlayerCharacter.Instance;
+		m_pTarget.OnRespawn += CleanEnemyAfterPlayerDeath;
+	}
+
+	private void OnDestroy()
+	{
+		if (PlayerCharacter.Instance != null)
+			PlayerCharacter.Instance.OnRespawn -= CleanEnemyAfterPlayerDeath;
 	}
 
 	private bool IsAttacking()
@@ -37,9 +44,18 @@ public class EnemyCharacter : Character
 		return (transform.position - m_pTarget.transform.position).sqrMagnitude <= (m_pNavMeshAgent.stoppingDistance * m_pNavMeshAgent.stoppingDistance);
 	}
 
+	protected override void LaunchDeathAnim()
+	{
+		base.LaunchDeathAnim();
+		m_pNavMeshAgent.enabled = false;
+	}
+
 	private void Update()
 	{
-		if (m_pTarget != null)
+		if (IsDead)
+			return;
+
+		if (m_pTarget != null && !m_pTarget.IsDead)
 		{
 			if (!HasReachedDestination())
 				FollowTarget();
@@ -60,8 +76,14 @@ public class EnemyCharacter : Character
 
 	private void AttackTarget()
 	{
+		transform.LookAt(m_pTarget.transform, Vector3.up);
 		m_pNavMeshAgent.SetDestination(transform.position);
 		if (!IsAttacking())
 			m_pWeapon.TryAttack();
+	}
+
+	private void CleanEnemyAfterPlayerDeath(Character pPlayer)
+	{
+		KillCharacter();
 	}
 }

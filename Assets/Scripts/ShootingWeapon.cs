@@ -21,5 +21,7 @@ public class ShootingWeapon : Weapon
 	{
 		Projectile pNewProjectile = Instantiate(m_pProjectilePrefab, m_pShootOrigin.position, m_pShootOrigin.rotation);
 		pNewProjectile.m_pMaster = m_pMaster;
+
+		m_pMaster.m_pAnimator?.SetTrigger(m_sAttackTriggerName);
 	}
 }

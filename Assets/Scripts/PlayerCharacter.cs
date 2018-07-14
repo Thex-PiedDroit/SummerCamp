@@ -1,11 +1,14 @@
 ﻿
 using UnityEngine;
+using System.Collections;
 
 public class PlayerCharacter : Character
 {
 #region Variables (public)
 
 	static public PlayerCharacter Instance = null;
+
+	public Rigidbody m_pRigidBody = null;
 
 	#endregion
 
@@ -16,7 +19,7 @@ public class PlayerCharacter : Character
 	#endregion
 
 
-	private void Awake()
+	override protected void Awake()
 	{
 		if (Instance != null)
 		{
@@ -30,10 +33,15 @@ public class PlayerCharacter : Character
 		}
 
 		Instance = this;
+
+		base.Awake();
 	}
 
 	private void Update()
 	{
+		if (IsDead)
+			return;
+
 		CatchMoveInput();
 		CatchShootInput();
 	}
@@ -46,7 +54,10 @@ public class PlayerCharacter : Character
 			z = Input.GetAxis("Vertical")
 		};
 
-		if (tMovement == Vector3.zero)
+		bool bMoving = tMovement != Vector3.zero;
+		m_pAnimator.SetBool("Moving", bMoving);
+
+		if (!bMoving)
 			return;
 
 		tMovement = PlayerCamera.Instance.transform.TransformVector(tMovement);
@@ -59,5 +70,19 @@ public class PlayerCharacter : Character
 	{
 		if (Input.GetButton("Shoot"))
 			m_pWeapon?.TryAttack();
+	}
+
+	override public void KillCharacter()
+	{
+		StartCoroutine(WaitBeforeRespawn());
+	}
+
+	private IEnumerator WaitBeforeRespawn()
+	{
+		float fStartTime = Time.time;
+		while (Time.time - fStartTime < 2.0f)
+			yield return false;
+
+		Respawn(Vector3.zero);
 	}
 }

@@ -1,11 +1,9 @@
 ﻿
-using UnityEngine;
-
 public class MeleeWeapon : Weapon
 {
 #region Variables (public)
 
-	public string m_sAttackTriggerName = null;
+
 
 	#endregion
 

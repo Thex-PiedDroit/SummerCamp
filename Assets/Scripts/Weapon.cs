@@ -9,6 +9,8 @@ abstract public class Weapon : MonoBehaviour
 
 	public WeaponAttack m_pWeaponAttack = null;
 
+	public string m_sAttackTriggerName = null;
+
 	[Tooltip("In attacks per second")]
 	public float m_fRateOfAttack = 0.0f;
 
@@ -41,17 +43,19 @@ abstract public class Weapon : MonoBehaviour
 		m_bAttackAnimStarted = false;
 	}
 
+	public void KillMaster()
+	{
+		m_pMaster.KillCharacter();
+	}
+
 	private void LateUpdate()
 	{
-		if (m_bIsAttacking)
-		{
-			bool bIsAttackAnim = m_pMaster.m_pAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
+		bool bIsAttackAnim = m_pMaster.m_pAnimator != null ? m_pMaster.m_pAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") : false;
 
-			if (!m_bAttackAnimStarted)
-				m_bAttackAnimStarted = bIsAttackAnim;
-			else if (!bIsAttackAnim)
-				AttackFinished();
-		}
+		if (!m_bAttackAnimStarted)
+			m_bAttackAnimStarted = bIsAttackAnim;
+		else if (!bIsAttackAnim)
+			AttackFinished();
 	}
 
 	public bool IsAttacking()
