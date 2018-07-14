@@ -25,6 +25,13 @@ public class EnemyCharacter : Character
 		m_pNavMeshAgent.stoppingDistance = m_fDistanceToTargetToAttack + (m_pNavMeshAgent.radius * 2.0f);
 
 		m_pTarget = PlayerCharacter.Instance;
+		m_pTarget.OnRespawn += CleanEnemyAfterPlayerDeath;
+	}
+
+	private void OnDestroy()
+	{
+		if (PlayerCharacter.Instance != null)
+			PlayerCharacter.Instance.OnRespawn -= CleanEnemyAfterPlayerDeath;
 	}
 
 	private bool IsAttacking()
@@ -73,5 +80,10 @@ public class EnemyCharacter : Character
 		m_pNavMeshAgent.SetDestination(transform.position);
 		if (!IsAttacking())
 			m_pWeapon.TryAttack();
+	}
+
+	private void CleanEnemyAfterPlayerDeath(Character pPlayer)
+	{
+		KillCharacter();
 	}
 }

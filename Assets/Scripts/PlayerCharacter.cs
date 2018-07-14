@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using System.Collections;
 
 public class PlayerCharacter : Character
 {
@@ -18,7 +19,7 @@ public class PlayerCharacter : Character
 	#endregion
 
 
-	private void Awake()
+	override protected void Awake()
 	{
 		if (Instance != null)
 		{
@@ -32,6 +33,8 @@ public class PlayerCharacter : Character
 		}
 
 		Instance = this;
+
+		base.Awake();
 	}
 
 	private void Update()
@@ -64,5 +67,20 @@ public class PlayerCharacter : Character
 	{
 		if (Input.GetButton("Shoot"))
 			m_pWeapon?.TryAttack();
+	}
+
+	protected override void LaunchDeathAnim()
+	{
+		base.LaunchDeathAnim();
+		StartCoroutine(WaitBeforeRespawn());
+	}
+
+	private IEnumerator WaitBeforeRespawn()
+	{
+		float fStartTime = Time.time;
+		while (Time.time - fStartTime < 2.0f)
+			yield return false;
+
+		Respawn(Vector3.zero);
 	}
 }

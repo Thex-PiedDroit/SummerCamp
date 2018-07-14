@@ -48,15 +48,12 @@ abstract public class Weapon : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		if (m_bIsAttacking)
-		{
-			bool bIsAttackAnim = m_pMaster.m_pAnimator != null ? m_pMaster.m_pAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") : false;
+		bool bIsAttackAnim = m_pMaster.m_pAnimator != null ? m_pMaster.m_pAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") : false;
 
-			if (!m_bAttackAnimStarted)
-				m_bAttackAnimStarted = bIsAttackAnim;
-			else if (!bIsAttackAnim)
-				AttackFinished();
-		}
+		if (!m_bAttackAnimStarted)
+			m_bAttackAnimStarted = bIsAttackAnim;
+		else if (!bIsAttackAnim)
+			AttackFinished();
 	}
 
 	public bool IsAttacking()

@@ -37,6 +37,12 @@ public class EnemiesManager : MonoBehaviour
 		m_pAllEnemies = new List<EnemyCharacter>();
 	}
 
+	private void OnDestroy()
+	{
+		for (int i = 0; i < m_pAllEnemies.Count; ++i)
+			m_pAllEnemies[i].OnDeath -= RemoveEnemyFromList;
+	}
+
 	private void Update()
 	{
 		CatchSpawnEnemyInput();
@@ -58,5 +64,11 @@ public class EnemiesManager : MonoBehaviour
 	{
 		EnemyCharacter pNewEnemy = Instantiate(m_pEnemyPrefab, tSpawnPosition, Quaternion.identity, transform);
 		m_pAllEnemies.Add(pNewEnemy);
+		pNewEnemy.OnDeath += RemoveEnemyFromList;
+	}
+
+	private void RemoveEnemyFromList(Character pEnemy)
+	{
+		m_pAllEnemies.Remove(pEnemy as EnemyCharacter);
 	}
 }
