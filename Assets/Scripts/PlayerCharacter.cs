@@ -5,7 +5,7 @@ public class PlayerCharacter : Character
 {
 #region Variables (public)
 
-
+	static public PlayerCharacter Instance = null;
 
 	#endregion
 
@@ -15,6 +15,22 @@ public class PlayerCharacter : Character
 
 	#endregion
 
+
+	private void Awake()
+	{
+		if (Instance != null)
+		{
+			if (this != Instance)
+			{
+				Destroy(gameObject);
+				Debug.LogError("Two instances of singleton class " + GetType() + " exist. Second instance has been destroyed.");
+			}
+
+			return;
+		}
+
+		Instance = this;
+	}
 
 	private void Update()
 	{

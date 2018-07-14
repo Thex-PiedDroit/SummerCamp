@@ -11,6 +11,7 @@ abstract public class Character : MonoBehaviour
 		BAD
 	}
 
+	public Animator m_pAnimator = null;
 	public Rigidbody m_pRigidBody = null;
 
 	public Weapon m_pWeapon = null;
@@ -30,6 +31,7 @@ abstract public class Character : MonoBehaviour
 
 	public void Damage(float fDamage)
 	{
+		print("Aouch i'm hurt for " + fDamage + " damage!");
 		m_fHealth -= fDamage;
 	}
 }
