@@ -41,7 +41,6 @@ abstract public class Character : MonoBehaviour
 
 	public void Damage(float fDamage)
 	{
-		print("Aouch i'm hurt for " + fDamage + " damage!");
 		CurrentHealth -= fDamage;
 
 		if (CurrentHealth <= 0.0f)
