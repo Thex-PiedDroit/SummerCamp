@@ -56,7 +56,7 @@ public class EnemiesManager : MonoBehaviour
 		Ray tRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit tHit;
 
-		if (Physics.Raycast(tRay, out tHit, 100.0f, LayerMask.GetMask("Set"), QueryTriggerInteraction.Ignore))
+		if (Physics.Raycast(tRay, out tHit, 100.0f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore))
 			SpawnEnemy(tHit.point);
 	}
 
